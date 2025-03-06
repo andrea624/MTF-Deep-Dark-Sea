@@ -1,20 +1,22 @@
 class Menu extends Phaser.Scene {
     constructor() {
-        super("menuScene")
+        super('menuScene')
     }
 
+    // everything was preloaded in Load.js
     preload() {
-        // load background
-        this.preload.image('titlescreen', './assets/images/menuscreen.png')
+
     }
 
     create() {
-        // add menu background image
-        this.add.image(0, 0, 'titlescreen').setOrigin(0, 0).setDisplaySize(game.config.width, game.config.height);
+        // add background image
+        this.add.image(0, 0, 'menuscreen').setOrigin(0, 0).setDisplaySize(game.config.width, game.config.height)
 
+        
     }
 
     update() {
+        // check for input
 
     }
 }

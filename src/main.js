@@ -10,7 +10,7 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [ Menu ]
+    scene: [ Load, Menu ]
 }
 
 let game = new Phaser.Game(config)
