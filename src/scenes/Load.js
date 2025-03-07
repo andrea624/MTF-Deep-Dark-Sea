@@ -21,10 +21,17 @@ class Load extends Phaser.Scene {
         // load images
         this.load.image('menuscreen', './images/menuscreen.png')
         this.load.image('saving', './images/saving.png')
+        
         //loads spritesheets
+        this.load.spritesheet('walking', './images/walking.png', {
+            frameWidth: 800, 
+            frameHeight: 800
+        })
+        this.load.spritesheet('shooting', './images/shooting.png',{
+            frameWidth: 800,
+            frameHeight: 800 
+        })
 
-
-        //loads sprite sheets
 
 
         // load bitmap font
@@ -33,6 +40,16 @@ class Load extends Phaser.Scene {
     }
 
     create() {
+        // define animations
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNumbers('walking', {
+            start: 0,
+            end: 3
+            }),
+            frameRate: 10,
+            repeat: -1 // Loop animation
+        })
         // go to the title screen
         this.scene.start('menuScene')
         
