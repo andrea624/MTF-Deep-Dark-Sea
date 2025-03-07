@@ -21,6 +21,9 @@ class Load extends Phaser.Scene {
         // load images
         this.load.image('menuscreen', './images/menuscreen.png')
 
+        // load bitmap font
+        this.load.bitmapFont('comixloud', './fonts/comixloud.png', 'fonts/comixloud.xml')
+
     }
 
     create() {

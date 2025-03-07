@@ -12,6 +12,10 @@ class Menu extends Phaser.Scene {
         // add background image
         this.add.image(0, 0, 'menuscreen').setOrigin(0, 0).setDisplaySize(game.config.width, game.config.height)
 
+        // add title text
+        //this.add.bitmapText()
+        this.add.bitmapText(centerX, titleY, 'comixloud', 'DEEP DARK', 64).setOrigin(0.5)
+
         
     }
 

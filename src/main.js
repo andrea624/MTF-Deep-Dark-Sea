@@ -14,3 +14,7 @@ let config = {
 }
 
 let game = new Phaser.Game(config)
+
+// global variables
+const centerX = game.config.width / 2
+const titleY = game.config.height / 5
