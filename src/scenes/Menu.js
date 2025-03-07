@@ -16,11 +16,17 @@ class Menu extends Phaser.Scene {
         //this.add.bitmapText()
         this.add.bitmapText(centerX, titleY, 'comixloud', 'DEEP DARK', 64).setOrigin(0.5)
 
-        
+        //adds key
+        keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+
     }
 
     update() {
         // check for input
+        if(Phaser.Input.Keyboard.JustDown(keyEnter)){
+            this.scene.start('saveScene')
+            //console.log('im hungry')
+        }
 
     }
 }

@@ -20,6 +20,12 @@ class Load extends Phaser.Scene {
 
         // load images
         this.load.image('menuscreen', './images/menuscreen.png')
+        this.load.image('saving', './images/saving.png')
+        //loads spritesheets
+
+
+        //loads sprite sheets
+
 
         // load bitmap font
         this.load.bitmapFont('comixloud', './fonts/comixloud.png', 'fonts/comixloud.xml')
@@ -29,5 +35,6 @@ class Load extends Phaser.Scene {
     create() {
         // go to the title screen
         this.scene.start('menuScene')
+        
     }
 }

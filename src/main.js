@@ -10,7 +10,7 @@ let config = {
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [ Load, Menu ]
+    scene: [ Load, Menu, Save, Play ]
 }
 
 let game = new Phaser.Game(config)
@@ -18,3 +18,6 @@ let game = new Phaser.Game(config)
 // global variables
 const centerX = game.config.width / 2
 const titleY = game.config.height / 5
+
+//reserves keywords
+let keyEnter, keyFIRE, keyLEFT, keyRIGHT
