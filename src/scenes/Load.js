@@ -23,6 +23,11 @@ class Load extends Phaser.Scene {
         this.load.image('saving', './images/saving.png')
         this.load.image('tempsea', './images/tempsea.png') // temporary game background
 
+        // sprites
+        this.load.image('tempocto', './images/tempocto.png')
+        this.load.image('tempfish', './images/tempfish.png')
+        this.load.image('tempshark', './images/tempshark.png')
+
         //loads spritesheets
         // this.load.spritesheet('walking', './images/walking.png', {
         //     frameWidth:,
