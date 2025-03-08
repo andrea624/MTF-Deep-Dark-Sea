@@ -25,6 +25,8 @@ class Menu extends Phaser.Scene {
         // check for input
         /*if(Phaser.Input.Keyboard.JustDown(keyEnter)){
             this.scene.start('saveScene')
+        if(Phaser.Input.Keyboard.JustDown(keyEnter)){
+            this.scene.start('playScene')
             //console.log('im hungry')
         }*/
         if(Phaser.Input.Keyboard.JustDown(keyEnter)){
