@@ -19,5 +19,5 @@ let game = new Phaser.Game(config)
 const centerX = game.config.width / 2
 const titleY = game.config.height / 5
 
-//reserves keywords
+//reserves keywords for keyboard
 let keyEnter, keyFIRE, keyLEFT, keyRIGHT

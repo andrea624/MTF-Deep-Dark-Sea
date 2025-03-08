@@ -18,13 +18,18 @@ class Load extends Phaser.Scene {
         // change path to begin loading different assets
         this.load.path = './assets/'
 
-        // load images
+        // load images/tile sprites
         this.load.image('menuscreen', './images/menuscreen.png')
         this.load.image('saving', './images/saving.png')
+        this.load.image('tempsea', './images/tempsea.png') // temporary game background
+
         //loads spritesheets
-
-
-        //loads sprite sheets
+        // this.load.spritesheet('walking', './images/walking.png', {
+        //     frameWidth:,
+        //     frameHeight:,
+        //     startFrame: 0,
+        //     endFrame: 3,
+        // }) // walking animation
 
 
         // load bitmap font
