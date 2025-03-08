@@ -3,6 +3,9 @@ class Play extends Phaser.Scene{
         super('playScene')
     }
     create(){
+        // place tile sprite
+        this.sea = this.add.tileSprite(0, 0, 1280, 640, 'tempsea').setOrigin(0, 0)
+
         //animation for walking left
         this.anims.create({
             key: 'walk',
@@ -21,13 +24,11 @@ class Play extends Phaser.Scene{
             end: 5
             }),
             frameRate: 10,
-            repeat: 0 
+            repeat: -1 // Loop animation
         })
         this.player = this.physics.add.sprite(400, 300, 'walking')
         this.player.play('walk')
-        // place tile sprite
-        this.sea = this.add.tileSprite(0, 0, 1280, 640, 'tempsea').setOrigin(0, 0)
-
+      
         //create keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)

@@ -31,12 +31,12 @@ class Load extends Phaser.Scene {
 
         //loads spritesheets
         this.load.spritesheet('walking', './images/walking.png', {
-            frameWidth: 800, 
-            frameHeight: 800
+            frameWidth: 400, 
+            frameHeight: 400
         })
         this.load.spritesheet('shooting', './images/shooting.png',{
-            frameWidth: 800,
-            frameHeight: 800 
+            frameWidth: 400,
+            frameHeight: 400 
         })
 
 
