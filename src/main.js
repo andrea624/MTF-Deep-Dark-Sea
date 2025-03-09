@@ -19,7 +19,8 @@ let config = {
 let game = new Phaser.Game(config)
 
 // global variables
-const centerX = game.config.width / 2
+let centerX = game.config.width / 2
+let centerY = game.config.height/ 2
 const titleY = game.config.height / 5
 
 //reserves keywords for keyboard
