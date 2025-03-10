@@ -14,8 +14,10 @@ class Menu extends Phaser.Scene {
 
         // add title text
         //this.add.bitmapText()
-        this.add.bitmapText(centerX, titleY, 'comixloud', 'DEEP DARK', 64).setOrigin(0.5)
-
+        this.add.bitmapText(centerX, titleY, 'comixloud', 'DEEP DARK SEA', 64).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 200, 'comixloud', 'USE LEFT & RIGHT ARROWS TO MOVE', 16).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 230, 'comixloud', 'CLICK ENTER TO BEGIN', 16).setOrigin(0.5)
+        
         //adds key
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
