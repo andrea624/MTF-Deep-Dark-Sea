@@ -20,7 +20,7 @@ class Play extends Phaser.Scene{
         this.anims.create({
             key: 'shoot',
             frames: this.anims.generateFrameNumbers('shooting', {
-            start: 0,
+            start: 2,
             end: 5
             }),
             frameRate: 10,
@@ -63,6 +63,7 @@ class Play extends Phaser.Scene{
             if (this.keyFIRE.isDown){
                 this.player.setVelocityX(0)//stops anim movement
                 this.player.play('shoot', true)
+                
             }
         }
         else if (this.keyLEFT.isDown) {
@@ -72,6 +73,7 @@ class Play extends Phaser.Scene{
             if (this.keyFIRE.isDown){
                 this.player.setVelocityX(0)//stops anim from moving on x axis
                 this.player.play('shoot', true)
+                
             }
         }
         else {
