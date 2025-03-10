@@ -8,7 +8,7 @@ class Fishenemy extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        // move spaceship left
+        // move fish right
         this.x -= this.moveSpeed
 
         // wrap from left to right edge
