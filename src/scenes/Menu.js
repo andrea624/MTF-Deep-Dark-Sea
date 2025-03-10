@@ -21,6 +21,15 @@ class Menu extends Phaser.Scene {
         //adds key
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
+        // adding background music
+        this.music = this.sound.add('underwater', {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            loop: true
+        });
+        this.music.play();
+
     }
 
     update() {
