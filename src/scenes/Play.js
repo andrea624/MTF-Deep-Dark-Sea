@@ -29,9 +29,14 @@ class Play extends Phaser.Scene{
         this.player = this.physics.add.sprite(400, 300, 'walking')
         this.player.play('walk')
       
-        // add fish
-        this.fish01 = new Fishenemy(this, game.config.width/4, 60, 'tempfish', 0, 10).setOrigin(0.5, 0)
+        // manually add fish
+        this.fish01 = new Fishenemy(this, game.config.width/6, 180, 'tempfish', 0, 10).setOrigin(0.5, 0)
 
+        // manually add octopus
+        this.octopus01 = new Octopusenemy(this, game.config.width/3, 90, 'tempocto', 0, 30).setOrigin(0.5)
+
+        // manually add shark enemy
+        this.shark01 = new Sharkenemy(this, game.config.width/2, 130, 'tempshark', 0, 20).setOrigin(0.5)
         //create keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)

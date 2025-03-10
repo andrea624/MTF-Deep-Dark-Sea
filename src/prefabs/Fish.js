@@ -4,7 +4,7 @@ class Fishenemy extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame)
         scene.add.existing(this)    // add to existing scene
         this.points = pointValue
-        this.moveSpeed = game.settings.fishenemySpeed*1.5
+        //this.moveSpeed = game.settings.fishenemySpeed*1.5
     }
 
     update() {
