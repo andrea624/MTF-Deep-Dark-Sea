@@ -24,7 +24,7 @@ class Menu extends Phaser.Scene {
         // adding background music
         this.music = this.sound.add('underwater', {
             mute: false,
-            volume: 1,
+            volume: 0.5,
             rate: 1,
             loop: true
         });
