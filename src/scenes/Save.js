@@ -7,7 +7,7 @@ class Save extends Phaser.Scene {
 
     create() {
         // add image
-        this.add.image(0, 0, 'saving').setOrigin(0,0).setScale(.05)
+        this.add.image(150, 0, 'saving').setOrigin(0,0).setScale(.05)
 
         // create key (delete later)
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)

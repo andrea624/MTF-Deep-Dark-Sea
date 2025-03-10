@@ -26,8 +26,10 @@ class Play extends Phaser.Scene{
             frameRate: 10,
             repeat: -1 // Loop animation
         })
-        this.player = this.physics.add.sprite(400, 300, 'walking')
+        this.player = this.physics.add.sprite(400, 450, 'walking').setScale(0.5, 0.5)
         this.player.play('walk')
+        
+        this.saves = null
       
         // manually add fish
         this.fish01 = new Fishenemy(this, game.config.width/6, 180, 'tempfish', 0, 10).setOrigin(0.5, 0)
@@ -42,12 +44,15 @@ class Play extends Phaser.Scene{
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
 
         // GAME OVER flag
         this.gameOver = false
         this.keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         this.keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         this.keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
+        this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
     }
     update(){
@@ -86,9 +91,25 @@ class Play extends Phaser.Scene{
         //this.sea.tilePositionX -= 2
 
         // check key input in order to transition into the save scene
-        if(Phaser.Input.Keyboard.JustDown(keyEnter)) {
-            this.scene.start('saveScene')
+
+        if (Phaser.Input.Keyboard.JustDown(keyEnter)) {
+            if (!this.saves) {
+                this.saves = this.add.image(150, 0, 'saving').setOrigin(0, 0).setScale(0.05)
+                this.save_text = this.add.bitmapText(470, 570, 'comixloud', 'GAME SAVED', 32).setOrigin(0.5)
+            }
         }
 
+        if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            //deletes image
+            if (this.saves) {
+                this.saves.destroy()
+                this.saves = null //saves becomes null again
+            }
+            //deletes text
+            if (this.save_text) {
+                this.save_text.destroy()
+                this.save_text = null
+            }
+        }
     }
 }
