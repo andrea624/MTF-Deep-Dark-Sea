@@ -5,6 +5,15 @@ class Play extends Phaser.Scene{
     create(){
         // place tile sprite
         this.sea = this.add.tileSprite(0, 0, 1280, 640, 'tempsea').setOrigin(0, 0)
+        
+        // adding background music
+        this.music = this.sound.add('underwater', {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            loop: true
+        });
+        this.music.play();
 
         //animation for walking left
         this.anims.create({

@@ -39,11 +39,11 @@ class Load extends Phaser.Scene {
             frameHeight: 400 
         })
 
-
-
         // load bitmap font
         this.load.bitmapFont('comixloud', './fonts/comixloud.png', 'fonts/comixloud.xml')
 
+        // load sound effects/music
+        this.load.audio('underwater', './sfx/underwater.wav')
     }
 
     create() {
