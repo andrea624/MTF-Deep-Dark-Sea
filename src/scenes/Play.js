@@ -37,6 +37,10 @@ class Play extends Phaser.Scene{
         })
         this.player = this.physics.add.sprite(400, 450, 'walking').setScale(0.5, 0.5)
         this.player.play('walk')
+
+        this.player.body.setGravityY(600)
+        this.player.body.setDragY(10)
+        this.player.setCollideWorldBounds(true)
         
         this.saves = null
       
@@ -54,6 +58,8 @@ class Play extends Phaser.Scene{
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
+
 
 
         // GAME OVER flag
@@ -62,6 +68,7 @@ class Play extends Phaser.Scene{
         this.keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         this.keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        this.keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
 
     }
     update(){
@@ -69,6 +76,8 @@ class Play extends Phaser.Scene{
             this.player.setVelocityX(200)//moves anim right
             this.player.play('walk', true)
             this.player.setFlipX(true)//flips animation in correct walking direction
+            this.player.body.setGravityY(100)
+            this.player.body.setDragY(10)
             if (this.keyFIRE.isDown){
                 this.player.setVelocityX(0)//stops anim movement
                 this.player.play('shoot', true)
@@ -79,14 +88,22 @@ class Play extends Phaser.Scene{
             this.player.setVelocityX(-200)//moves anim left
             this.player.play('walk', true)
             this.player.setFlipX(false)//flips animation
+            this.player.body.setGravityY(100)
+            this.player.body.setDragY(10)
             if (this.keyFIRE.isDown){
                 this.player.setVelocityX(0)//stops anim from moving on x axis
                 this.player.play('shoot', true)
                 
             }
         }
+        else if (this.keyUP.isDown){
+            this.player.setVelocityY(-200)
+            this.player.body.setDragY(10)
+            this.player.play('walk', true)
+        }
         else {
             this.player.setVelocityX(0)
+            this.player.setVelocityY(15)
             this.player.stop()
         }
         

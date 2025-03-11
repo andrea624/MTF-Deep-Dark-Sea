@@ -24,4 +24,4 @@ let centerY = game.config.height/ 2
 const titleY = game.config.height / 5
 
 //reserves keywords for keyboard
-let keyEnter, keyFIRE, keyLEFT, keyRIGHT, keyDOWN, keySPACE
+let keyEnter, keyFIRE, keyLEFT, keyRIGHT, keyDOWN, keySPACE, keyUP
