@@ -47,7 +47,7 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        // define animations
+        /*// define animations
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNumbers('walking', {
@@ -56,7 +56,7 @@ class Load extends Phaser.Scene {
             }),
             frameRate: 10,
             repeat: -1 // Loop animation
-        })
+        })*/
         // go to the title screen
         this.scene.start('menuScene')
         

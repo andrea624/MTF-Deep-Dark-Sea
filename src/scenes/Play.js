@@ -77,11 +77,21 @@ class Play extends Phaser.Scene{
     spawnFish() {
         const fishX = Phaser.Math.Between(200, game.config.width - 100)
         const fishY = 450 
-        this.fish = this.add.image(fishX, fishY, 'tempfish').setOrigin(0,0).setDisplaySize(50, 40)
+        this.fish = this.physics.add.sprite(fishX, fishY, 'tempfish').setOrigin(0, 0).setDisplaySize(50, 40)
+        this.fish.setCollideWorldBounds(false)
+
+    }
+    //detector 
+    handlePlayerFishCollision(player, fish) {
+    
+        fish.destroy()//Removes the fish
+        this.spawnFish()// Spawns a new fish
     }
     update(){
         //moves fish
         this.fish.x += 6
+        //collision detection 
+        this.physics.add.overlap(this.player, this.fish, this.handlePlayerFishCollision, null, this)
         if (this.keyRIGHT.isDown) {
             this.player.setVelocityX(200)//moves anim right
             this.player.play('walk', true)
