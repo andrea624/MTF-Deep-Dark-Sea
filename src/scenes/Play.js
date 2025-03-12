@@ -70,8 +70,18 @@ class Play extends Phaser.Scene{
         this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         this.keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
 
+        //spawns fish
+        this.spawnFish()
+    }
+    //fish spawner
+    spawnFish() {
+        const fishX = Phaser.Math.Between(200, game.config.width - 100)
+        const fishY = 450 
+        this.fish = this.add.image(fishX, fishY, 'tempfish').setOrigin(0,0).setDisplaySize(50, 40)
     }
     update(){
+        //moves fish
+        this.fish.x += 6
         if (this.keyRIGHT.isDown) {
             this.player.setVelocityX(200)//moves anim right
             this.player.play('walk', true)
@@ -139,5 +149,10 @@ class Play extends Phaser.Scene{
                 this.save_text = null
             }
         }
+        if (this.fish.x > game.config.width) {
+            this.fish.destroy() // removes fish
+            this.spawnFish()
+        }
+
     }
 }
