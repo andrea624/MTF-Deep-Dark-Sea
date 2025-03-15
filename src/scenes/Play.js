@@ -29,7 +29,7 @@ class Play extends Phaser.Scene{
         this.anims.create({
             key: 'shoot',
             frames: this.anims.generateFrameNumbers('shooting', {
-            start: 2,
+            start: 0,
             end: 5
             }),
             frameRate: 10,
@@ -73,9 +73,9 @@ class Play extends Phaser.Scene{
         //spawns fish
         this.spawnFish()
     }
-    //fish spawner
+    //fish spawner function
     spawnFish() {
-        const fishX = Phaser.Math.Between(200, game.config.width - 100)
+        const fishX = Phaser.Math.Between(0, game.config.width - 100)
         const fishY = 450 
         this.fish = this.physics.add.sprite(fishX, fishY, 'tempfish').setOrigin(0, 0).setDisplaySize(50, 40)
         this.fish.setCollideWorldBounds(false)
@@ -84,7 +84,7 @@ class Play extends Phaser.Scene{
     //detector 
     handlePlayerFishCollision(player, fish) {
     
-        fish.destroy()//Removes the fish
+        fish.destroy()//removes the fish
         this.spawnFish()// Spawns a new fish
     }
     update(){
@@ -99,7 +99,7 @@ class Play extends Phaser.Scene{
             this.player.body.setGravityY(100)
             this.player.body.setDragY(10)
             if (this.keyFIRE.isDown){
-                this.player.setVelocityX(0)//stops anim movement
+                this.player.setVelocityX(200)//continues to move anim if moving right
                 this.player.play('shoot', true)
                 
             }
@@ -111,7 +111,7 @@ class Play extends Phaser.Scene{
             this.player.body.setGravityY(100)
             this.player.body.setDragY(10)
             if (this.keyFIRE.isDown){
-                this.player.setVelocityX(0)//stops anim from moving on x axis
+                this.player.setVelocityX(-200)//continues to move anim left
                 this.player.play('shoot', true)
                 
             }
@@ -120,6 +120,12 @@ class Play extends Phaser.Scene{
             this.player.setVelocityY(-200)
             this.player.body.setDragY(10)
             this.player.play('walk', true)
+            if (this.keyFIRE.isDown){
+                this.player.setVelocityY(-200)
+                this.player.body.setDragY(10)
+                this.player.play('shoot', true)
+                
+            }
         }
         else {
             this.player.setVelocityX(0)

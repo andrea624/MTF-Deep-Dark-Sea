@@ -42,7 +42,6 @@ class Menu extends Phaser.Scene {
         }*/
         if(Phaser.Input.Keyboard.JustDown(keyEnter)){
             this.scene.start('playScene')
-            //console.log('im hungry')
         }
 
     }
