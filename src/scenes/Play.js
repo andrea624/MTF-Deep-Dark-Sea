@@ -3,8 +3,13 @@ class Play extends Phaser.Scene{
         super('playScene')
     }
     create(){
+        // tilemap
+        const map = this.add.tilemap('mapJSON')
+        const tileset = map.addTilesetImage('seabackground', 'tilesetImage')
+        const layer1 = map.createLayer('Tile Layer 1', tileset)
+
         // place tile sprite
-        this.sea = this.add.tileSprite(0, 0, 1280, 640, 'tempsea').setOrigin(0, 0)
+        //this.sea = this.add.tileSprite(0, 0, 1280, 640, 'tempsea').setOrigin(0, 0)
         
         // adding background music
         this.music = this.sound.add('underwater', {

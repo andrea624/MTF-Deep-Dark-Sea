@@ -22,7 +22,10 @@ class Load extends Phaser.Scene {
         this.load.image('menuscreen', './images/menuscreen.png')
         this.load.image('saving', './images/saving.png')
         
-        this.load.image('tempsea', './images/tempsea.png') // temporary game background
+        // load tilemap
+        this.load.image('tilesetImage', './images/seatileset.png')
+        this.load.tilemapTiledJSON('mapJSON', 'oceanmap.json')
+        //this.load.image('tempsea', './images/tempsea.png') // temporary game background
 
         // sprites
         this.load.image('tempocto', './images/tempocto.png')
