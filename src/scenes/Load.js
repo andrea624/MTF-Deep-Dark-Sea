@@ -19,34 +19,34 @@ class Load extends Phaser.Scene {
         this.load.path = './assets/'
 
         // load images/tile sprites
-        this.load.image('menuscreen', './images/menuscreen.png')
-        this.load.image('saving', './images/saving.png')
+        this.load.image('menuscreen', 'images/menuscreen.png')
+        this.load.image('saving', 'images/saving.png')
         
         // load tilemap
-        this.load.image('tilesetImage', './images/seatileset.png')
-        this.load.tilemapTiledJSON('mapJSON', 'oceanmap.json')
+        this.load.image('tilesetImage', 'seabackground.png')
+        this.load.tilemapTiledJSON('mapJSON', 'seamap.json')
         //this.load.image('tempsea', './images/tempsea.png') // temporary game background
 
         // sprites
-        this.load.image('tempocto', './images/tempocto.png')
-        this.load.image('tempfish', './images/tempfish.png')
-        this.load.image('tempshark', './images/tempshark.png')
+        this.load.image('tempocto', 'images/tempocto.png')
+        this.load.image('tempfish', 'images/tempfish.png')
+        this.load.image('tempshark', 'images/tempshark.png')
 
         //loads spritesheets
-        this.load.spritesheet('walking', './images/walking.png', {
+        this.load.spritesheet('walking', 'images/walking.png', {
             frameWidth: 400, 
             frameHeight: 400
         })
-        this.load.spritesheet('shooting', './images/shooting.png',{
+        this.load.spritesheet('shooting', 'images/shooting.png',{
             frameWidth: 400,
             frameHeight: 400 
         })
 
         // load bitmap font
-        this.load.bitmapFont('comixloud', './fonts/comixloud.png', 'fonts/comixloud.xml')
+        this.load.bitmapFont('comixloud', 'fonts/comixloud.png', 'fonts/comixloud.xml')
 
         // load sound effects/music
-        this.load.audio('underwater', './sfx/underwater.wav')
+        this.load.audio('underwater', 'sfx/underwater.wav')
     }
 
     create() {

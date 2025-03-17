@@ -5,8 +5,11 @@ class Play extends Phaser.Scene{
     create(){
         // tilemap
         const map = this.add.tilemap('mapJSON')
-        const tileset = map.addTilesetImage('seabackground', 'tilesetImage')
+        const tileset = map.addTilesetImage('seabgts', 'tilesetImage')
         const layer1 = map.createLayer('Tile Layer 1', tileset)
+
+        // adding collision in map
+        layer1.setCollisionByProperty({ collides: true })
 
         // place tile sprite
         //this.sea = this.add.tileSprite(0, 0, 1280, 640, 'tempsea').setOrigin(0, 0)
@@ -40,13 +43,22 @@ class Play extends Phaser.Scene{
             frameRate: 10,
             repeat: -1 // Loop animation
         })
+
         this.player = this.physics.add.sprite(400, 450, 'walking').setScale(0.5, 0.5)
         this.player.play('walk')
 
         this.player.body.setGravityY(600)
         this.player.body.setDragY(10)
         this.player.setCollideWorldBounds(true)
+
+        // add camera bounds
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+        this.cameras.main.startFollow(this.player, true, 0.25, 0.25)
+
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
         
+        this.physics.add.collider(this.player, layer1)
+
         this.saves = null
       
         // manually add fish
@@ -65,7 +77,7 @@ class Play extends Phaser.Scene{
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
 
-
+        
 
         // GAME OVER flag
         this.gameOver = false
