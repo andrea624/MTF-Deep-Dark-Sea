@@ -62,7 +62,7 @@ class Play extends Phaser.Scene{
         this.saves = null
       
         // manually add fish
-        this.fish01 = new Fishenemy(this, game.config.width/6, 180, 'tempfish', 0, 10).setOrigin(0.5, 0)
+        this.fish01 = new Fishenemy(this, game.config.width/6, 300, 'tempfish', 0, 10).setOrigin(0.5, 0)
 
         // manually add octopus
         this.octopus01 = new Octopusenemy(this, game.config.width/3, 90, 'tempocto', 0, 30).setOrigin(0.5)
@@ -108,6 +108,7 @@ class Play extends Phaser.Scene{
         fish.destroy()//removes the fish
         this.spawnFish()// Spawns a new fish
     }
+
     update(){
         //moves fish
         this.fish.x += 6
