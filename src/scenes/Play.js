@@ -11,9 +11,9 @@ class Play extends Phaser.Scene{
         // adding collision in map
         layer1.setCollisionByProperty({ collides: true })
 
-        // place tile sprite
-        //this.sea = this.add.tileSprite(0, 0, 1280, 640, 'tempsea').setOrigin(0, 0)
-        
+        // 
+        const playerSpawn = map.findObject('Spawns', (obj) => obj.name === 'playerSpawn')
+
         // adding background music
         this.music = this.sound.add('underwater', {
             mute: false,
@@ -44,7 +44,7 @@ class Play extends Phaser.Scene{
             repeat: -1 // Loop animation
         })
 
-        this.player = this.physics.add.sprite(400, 450, 'walking').setScale(0.5, 0.5)
+        this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'walking').setScale(0.15, 0.15)
         this.player.play('walk')
 
         this.player.body.setGravityY(600)
