@@ -44,7 +44,7 @@ class Play extends Phaser.Scene{
             repeat: -1 // Loop animation
         })
 
-        this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'walking').setScale(0.15, 0.15)
+        this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'walking').setScale(0.17, 0.17).setCircle(0.5)
         this.player.play('walk')
 
         this.player.body.setGravityY(600)
@@ -76,6 +76,9 @@ class Play extends Phaser.Scene{
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
+
+
 
         
 
@@ -86,6 +89,7 @@ class Play extends Phaser.Scene{
         this.keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         this.keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         this.keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
+        this.keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
 
         //spawns fish
         this.spawnFish()
@@ -133,6 +137,17 @@ class Play extends Phaser.Scene{
                 
             }
         }
+        else if (this.keyDOWN.isDown){
+            this.player.setVelocityY(200)
+            this.player.body.setDragY(10)
+            this.player.play('walk', true)
+            if (this.keyFIRE.isDown){
+                this.player.setVelocityY(2200)
+                this.player.body.setDragY(10)
+                this.player.play('shoot', true)
+                
+            }
+        }
         else if (this.keyUP.isDown){
             this.player.setVelocityY(-200)
             this.player.body.setDragY(10)
@@ -169,6 +184,7 @@ class Play extends Phaser.Scene{
                 this.save_text = this.add.bitmapText(470, 570, 'comixloud', 'GAME SAVED', 32).setOrigin(0.5)
             }
         }
+        
 
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             //deletes image
@@ -186,6 +202,7 @@ class Play extends Phaser.Scene{
             this.fish.destroy() // removes fish
             this.spawnFish()
         }
+        
 
     }
 }
