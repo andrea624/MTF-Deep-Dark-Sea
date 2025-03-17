@@ -44,7 +44,7 @@ class Play extends Phaser.Scene{
             repeat: -1 // Loop animation
         })
 
-        this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'walking').setScale(0.15, 0.15)
+        this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'walking').setScale(0.15, 0.15).setCircle(155)
         this.player.play('walk')
 
         this.player.body.setGravityY(600)

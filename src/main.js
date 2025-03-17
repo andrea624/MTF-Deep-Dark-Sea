@@ -8,7 +8,10 @@ let config = {
     height: 640,
     width: 960,
     physics: {
-        default: 'arcade'
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
     },
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
