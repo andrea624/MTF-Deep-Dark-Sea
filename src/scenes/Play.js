@@ -69,6 +69,12 @@ class Play extends Phaser.Scene{
 
         // manually add shark enemy
         this.shark01 = new Sharkenemy(this, game.config.width/2, 130, 'tempshark', 0, 20).setOrigin(0.5)
+
+        //group for arrows
+        this.arrows = this.physics.add.group({
+            defaultKey: 'Arrow',
+            maxSize: 4
+        })
         //create keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
@@ -108,64 +114,70 @@ class Play extends Phaser.Scene{
         fish.destroy()//removes the fish
         this.spawnFish()// Spawns a new fish
     }
+    //fire arrow function
+    fireArrow() {
+        let arrow = this.arrows.get(this.player.x, this.player.y, 'Arrow')
+
+    
+        if (arrow) {
+            arrow.setActive(true)//makes arrow collide
+            arrow.setVisible(true)// makes arrow visible
+            arrow.body.enable = true
+            arrow.body.allowGravity = false
+    
+            
+            let arrowSpeed = this.player.flipX ? 500 : -500 //depends on player direction to flip arrows
+            arrow.setVelocityX(arrowSpeed)
+            arrow.setScale(0.5)
+    
+            arrow.setFlipX(this.player.flipX)//flips for left
+            //hides arrows after 2 secs
+            this.time.delayedCall(2000, () => {
+                this.arrows.killAndHide(arrow)//deactivates arrow and hides them
+                arrow.body.enable = false
+            })
+        }
+    }
 
     update(){
         //moves fish
         this.fish.x += 6
         //collision detection 
         this.physics.add.overlap(this.player, this.fish, this.handlePlayerFishCollision, null, this)
+        let velocityX = 0
+        let velocityY = 0
+        let animation = null
+        //curr direction
+        let flipX = this.player.flipX
         if (this.keyRIGHT.isDown) {
-            this.player.setVelocityX(200)//moves anim right
-            this.player.play('walk', true)
-            this.player.setFlipX(true)//flips animation in correct walking direction
-            this.player.body.setGravityY(100)
-            this.player.body.setDragY(10)
-            if (this.keyFIRE.isDown){
-                this.player.setVelocityX(200)//continues to move anim if moving right
-                this.player.play('shoot', true)
-                
-            }
+            velocityX = 200
+            flipX = true
         }
-        else if (this.keyLEFT.isDown) {
-            this.player.setVelocityX(-200)//moves anim left
-            this.player.play('walk', true)
-            this.player.setFlipX(false)//flips animation
-            this.player.body.setGravityY(100)
-            this.player.body.setDragY(10)
-            if (this.keyFIRE.isDown){
-                this.player.setVelocityX(-200)//continues to move anim left
-                this.player.play('shoot', true)
-                
-            }
+        if (this.keyLEFT.isDown) {
+            velocityX = -200
+            flipX = false
         }
-        else if (this.keyDOWN.isDown){
-            this.player.setVelocityY(200)
-            this.player.body.setDragY(10)
-            this.player.play('walk', true)
-            if (this.keyFIRE.isDown){
-                this.player.setVelocityY(2200)
-                this.player.body.setDragY(10)
-                this.player.play('shoot', true)
-                
-            }
+        if (this.keyDOWN.isDown) {
+            velocityY = 200
         }
-        else if (this.keyUP.isDown){
-            this.player.setVelocityY(-200)
-            this.player.body.setDragY(10)
-            this.player.play('walk', true)
-            if (this.keyFIRE.isDown){
-                this.player.setVelocityY(-200)
-                this.player.body.setDragY(10)
-                this.player.play('shoot', true)
-                
-            }
+        if (this.keyUP.isDown) {
+            velocityY = -200
         }
-        else {
-            this.player.setVelocityX(0)
-            this.player.setVelocityY(15)
+        //fixes the shooting and walking animations
+        if (this.keyFIRE.isDown) {
+            animation = 'shoot'
+        } else if (velocityX !== 0 || velocityY !== 0) {
+            animation = 'walk'
+        }
+        this.player.setVelocityX(velocityX)
+        this.player.setVelocityY(velocityY)
+        this.player.setFlipX(flipX)
+
+        if (animation) {
+            this.player.play(animation, true)
+        } else {
             this.player.stop()
         }
-        
         
         // if (keyLEFT.isDown) {
         //     this.p1Rocket.x -= 4 //moves left
@@ -179,10 +191,23 @@ class Play extends Phaser.Scene{
 
         // check key input in order to transition into the save scene
 
+        //adjusted save image now considers the camera position and disappears after .7 seconds
         if (Phaser.Input.Keyboard.JustDown(keyEnter)) {
             if (!this.saves) {
-                this.saves = this.add.image(150, 0, 'saving').setOrigin(0, 0).setScale(0.05)
-                this.save_text = this.add.bitmapText(470, 570, 'comixloud', 'GAME SAVED', 32).setOrigin(0.5)
+                //fit to screen 
+                this.saves = this.add.image(this.cameras.main.centerX + this.cameras.main.worldView.x, this.cameras.main.centerY + this.cameras.main.worldView.y, 'saving').setOrigin(0.5, 0.5).setScale(0.05) 
+                this.save_text = this.add.bitmapText(this.cameras.main.centerX + this.cameras.main.worldView.x, this.cameras.main.centerY + this.cameras.main.worldView.y + 50, 'comixloud', 'GAME SAVED', 32).setOrigin(0.5, 0.5)
+                //removes both text and image
+                this.time.delayedCall(700, () => {
+                    if (this.saves) {
+                        this.saves.destroy()
+                        this.saves = null
+                    }
+                    if (this.save_text) {
+                        this.save_text.destroy()
+                        this.save_text = null
+                    }
+                })
             }
         }
         
@@ -202,6 +227,10 @@ class Play extends Phaser.Scene{
         if (this.fish.x > game.config.width) {
             this.fish.destroy() // removes fish
             this.spawnFish()
+        }
+        //shoots arrow 
+        if (Phaser.Input.Keyboard.JustDown(this.keyFIRE)) {
+            this.fireArrow()
         }
         
 
