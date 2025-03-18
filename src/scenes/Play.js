@@ -11,7 +11,7 @@ class Play extends Phaser.Scene{
         // adding collision in map
         layer1.setCollisionByProperty({ collides: true })
 
-        // 
+        //player spawns
         const playerSpawn = map.findObject('Spawns', (obj) => obj.name === 'playerSpawn')
 
         // adding background music
@@ -43,11 +43,18 @@ class Play extends Phaser.Scene{
             frameRate: 10,
             repeat: -1 // Loop animation
         })
-
-        this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'walking').setScale(0.15, 0.15).setCircle(155)
+        //players last saved position
+        const savedPosition = localStorage.getItem('playerPosition')
+        if (savedPosition) {
+            const position = JSON.parse(savedPosition)
+            this.player = this.physics.add.sprite(position.x, position.y, 'walking').setScale(0.15, 0.15).setCircle(155)
+        }
+        else {
+            this.player = this.physics.add.sprite(playerSpawn.x, playerSpawn.y, 'walking').setScale(0.15, 0.15).setCircle(155)
+        }
         this.player.play('walk')
 
-        this.player.body.setGravityY(600)
+        this.player.body.setGravityY(900)
         this.player.body.setDragY(10)
         this.player.setCollideWorldBounds(true)
 
@@ -166,7 +173,8 @@ class Play extends Phaser.Scene{
         //fixes the shooting and walking animations
         if (this.keyFIRE.isDown) {
             animation = 'shoot'
-        } else if (velocityX !== 0 || velocityY !== 0) {
+        }
+        else if (velocityX !== 0 || velocityY !== 0) {
             animation = 'walk'
         }
         this.player.setVelocityX(velocityX)
@@ -175,7 +183,8 @@ class Play extends Phaser.Scene{
 
         if (animation) {
             this.player.play(animation, true)
-        } else {
+        }
+        else {
             this.player.stop()
         }
         
@@ -191,12 +200,21 @@ class Play extends Phaser.Scene{
 
         // check key input in order to transition into the save scene
 
-        //adjusted save image now considers the camera position and disappears after .7 seconds
+        //adjusted save image now considers the camera position and disappears after .7 seconds and also saves playerPosition with its coordinates
         if (Phaser.Input.Keyboard.JustDown(keyEnter)) {
+            const playerPosition = {
+                x: this.player.x,
+                y: this.player.y
+            }
+        
+            //save players position to localStorage
+            localStorage.setItem('playerPosition', JSON.stringify(playerPosition))
+        
             if (!this.saves) {
                 //fit to screen 
+                
                 this.saves = this.add.image(this.cameras.main.centerX + this.cameras.main.worldView.x, this.cameras.main.centerY + this.cameras.main.worldView.y, 'saving').setOrigin(0.5, 0.5).setScale(0.05) 
-                this.save_text = this.add.bitmapText(this.cameras.main.centerX + this.cameras.main.worldView.x, this.cameras.main.centerY + this.cameras.main.worldView.y + 50, 'comixloud', 'GAME SAVED', 32).setOrigin(0.5, 0.5)
+                this.save_text = this.add.bitmapText(this.cameras.main.centerX + this.cameras.main.worldView.x, this.cameras.main.centerY + this.cameras.main.worldView.y + 250, 'comixloud', 'GAME SAVED', 32).setOrigin(0.5, 0.5)
                 //removes both text and image
                 this.time.delayedCall(700, () => {
                     if (this.saves) {
@@ -207,10 +225,11 @@ class Play extends Phaser.Scene{
                         this.save_text.destroy()
                         this.save_text = null
                     }
+                    this.scene.start('menuScene')
                 })
             }
+            
         }
-        
 
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
             //deletes image
