@@ -58,30 +58,33 @@ class Play extends Phaser.Scene{
         this.player.body.setDragY(10)
         this.player.setCollideWorldBounds(true)
 
-        // add camera bounds
+        // add camera & world bounds
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
         this.cameras.main.startFollow(this.player, true, 0.25, 0.25)
-
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-        
         this.physics.add.collider(this.player, layer1)
 
         this.saves = null
-      
-        // manually add fish
-        this.fish01 = new Fishenemy(this, game.config.width/6, 300, 'tempfish', 0, 10).setOrigin(0.5, 0)
+       
+        // Create an enemy group
+        this.enemies = this.physics.add.group()
 
-        // manually add octopus
-        this.octopus01 = new Octopusenemy(this, game.config.width/3, 90, 'tempocto', 0, 30).setOrigin(0.5)
-
-        // manually add shark enemy
-        this.shark01 = new Sharkenemy(this, game.config.width/2, 130, 'tempshark', 0, 20).setOrigin(0.5)
+        // find enemy spawns
+        const sharkSpawn = map.findObject('Spawns', obj => obj.name === 'sharkSpawn')
+        const octoSpawn = map.findObject('Spawns', obj => obj.name === 'octoSpawn')
+        const fishSpawn = map.findObject('Spawns', obj => obj.name === 'fishSpawn')
+        
+        // spawn enemies
+        if (sharkSpawn) this.spawnEnemy('shark', sharkSpawn.x, sharkSpawn.y)
+        if (octoSpawn) this.spawnEnemy('octopus', octoSpawn.x, octoSpawn.y)
+        if (fishSpawn) this.spawnEnemy('fish', fishSpawn.x, fishSpawn.y)
 
         //group for arrows
         this.arrows = this.physics.add.group({
             defaultKey: 'Arrow',
             maxSize: 4
         })
+        
         //create keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
@@ -104,23 +107,11 @@ class Play extends Phaser.Scene{
         this.keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
         this.keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
 
-        //spawns fish
-        this.spawnFish()
-    }
-    //fish spawner function
-    spawnFish() {
-        const fishX = Phaser.Math.Between(0, game.config.width - 100)
-        const fishY = 450 
-        this.fish = this.physics.add.sprite(fishX, fishY, 'tempfish').setOrigin(0, 0).setDisplaySize(50, 40)
-        this.fish.setCollideWorldBounds(false)
+        // Collision detection: Arrows destroy enemies
+        this.physics.add.overlap(this.arrows, this.enemies, this.destroyEnemy, null, this)
 
     }
-    //detector 
-    handlePlayerFishCollision(player, fish) {
     
-        fish.destroy()//removes the fish
-        this.spawnFish()// Spawns a new fish
-    }
     //fire arrow function
     fireArrow() {
         let arrow = this.arrows.get(this.player.x, this.player.y, 'Arrow')
@@ -141,16 +132,39 @@ class Play extends Phaser.Scene{
             //hides arrows after 2 secs
             this.time.delayedCall(2000, () => {
                 this.arrows.killAndHide(arrow)//deactivates arrow and hides them
-                arrow.body.enable = false
+                arrow.disableBody(true, true)
             })
         }
     }
 
+    // Spawn an enemy and add to the group
+    spawnEnemy(type, x, y) {
+        let enemy
+        if (type === 'shark') enemy = new Sharkenemy(this, x, y)
+        if (type === 'octopus') enemy = new Octopusenemy(this, x, y)
+        if (type === 'fish') enemy = new Fishenemy(this, x, y)
+
+        if (enemy) this.enemies.add(enemy)
+    }
+
+    // Destroy enemy when hit by an arrow functions
+    destroyEnemy(arrow, enemy) {
+        if (enemy && enemy.destroyAndRespawn) {
+            enemy.destroyAndRespawn() // Call respawn function from enemy class
+        }
+        if (arrow) {
+            arrow.destroy()  // Safely destroy arrow
+        }
+    }
+
     update(){
-        //moves fish
-        this.fish.x += 6
+        // Make enemies chase the player
+        this.enemies.children.iterate(enemy => {
+            if (enemy.active) enemy.update(this.player)
+        });
+
         //collision detection 
-        this.physics.add.overlap(this.player, this.fish, this.handlePlayerFishCollision, null, this)
+        //this.physics.add.overlap(this.player, this.fish, this.handlePlayerFishCollision, null, this)
         let velocityX = 0
         let velocityY = 0
         let animation = null
@@ -242,10 +256,6 @@ class Play extends Phaser.Scene{
                 this.save_text.destroy()
                 this.save_text = null
             }
-        }
-        if (this.fish.x > game.config.width) {
-            this.fish.destroy() // removes fish
-            this.spawnFish()
         }
         //shoots arrow 
         if (Phaser.Input.Keyboard.JustDown(this.keyFIRE)) {

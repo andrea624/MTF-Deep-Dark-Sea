@@ -1,24 +1,43 @@
-// enemy ship prefab
-class Octopusenemy extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, pointValue) {
-        super(scene, x, y, texture, frame)
-        scene.add.existing(this)    // add to existing scene
-        this.points = pointValue
-        //this.moveSpeed = game.settings.octopusenemySpeed*0.5
+// enemy octopusprefab
+class Octopusenemy extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y) {
+        super(scene, x, y, 'tempocto')
+
+        // Store scene reference
+        this.sceneRef = scene
+
+        scene.add.existing(this)
+        scene.physics.add.existing(this)
+    
+        this.setCollideWorldBounds(true)
+        this.body.allowGravity = false
+        this.speed = 60;
     }
 
-    update() {
-        // move spaceship left
-        this.x -= this.moveSpeed
-
-        // wrap from left to right edge
-        if(this.x <= 0 - this.width) {
-            this.x = game.config.width
+    update(player) {
+        if (player) {
+            this.scene.physics.moveToObject(this, player, this.speed)
         }
     }
 
-    // reset position
-    reset() {
-        this.x = game.config.width
+    destroyAndRespawn() {
+        if (!this.scene) return;
+
+        //this.destroy()
+        // Disable the enemy instead of destroying it
+        this.setActive(false)
+        this.setVisible(false)
+        this.body.enable = false
+
+        this.sceneRef.time.delayedCall(3000, () => {
+            if (!this.sceneRef) return;
+            let spawn = this.sceneRef.map.findObject('Spawns', obj => obj.name === 'octoSpawn')
+            if (spawn) {
+                this.setPosition(spawn.x, spawn.y)
+                this.setActive(true)
+                this.setVisible(true)
+                this.body.enable = true // Ensure body is re-enabled when respawning
+            }
+        });
     }
-} 
+}
