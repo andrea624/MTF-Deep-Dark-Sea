@@ -170,9 +170,7 @@ class Play extends Phaser.Scene{
             explosion.play('explode')//plays anim
             enemy.destroyAndRespawn() // Call respawn function from enemy class
         }
-        /*if (arrow) {
-            arrow.destroy()  // Safely destroy arrow
-        }*/
+        
     }
 
     handlePlayerEnemyCollision(player, enemy) {
@@ -245,18 +243,7 @@ class Play extends Phaser.Scene{
             this.player.stop()
         }
         
-        // if (keyLEFT.isDown) {
-        //     this.p1Rocket.x -= 4 //moves left
-        // }
-        // if (keyRIGHT.isDown) {
-        //     this.p1Rocket.x += 4 //moves right
-        // }
-
-        // move tilesprite
-        //this.sea.tilePositionX -= 2
-
-        // check key input in order to transition into the save scene
-
+        
         //adjusted save image now considers the camera position and disappears after .7 seconds and also saves playerPosition with its coordinates
         if (Phaser.Input.Keyboard.JustDown(keyEnter)) {
             const playerPosition = {

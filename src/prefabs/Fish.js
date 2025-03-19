@@ -9,8 +9,6 @@ class Fishenemy extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this)    // add to existing scene
         scene.physics.add.existing(this)
 
-        // this.spawnX = x;  // Store spawn location
-        // this.spawnY = y;
 
         this.setCollideWorldBounds(true)
         this.setScale(0.5)
@@ -29,7 +27,6 @@ class Fishenemy extends Phaser.Physics.Arcade.Sprite {
     destroyAndRespawn() {
         if (!this.scene) return;
 
-        //this.destroy()
         // Disable the enemy instead of destroying it
         this.setActive(false)
         this.setVisible(false)

@@ -23,7 +23,7 @@ class Octopusenemy extends Phaser.Physics.Arcade.Sprite {
     destroyAndRespawn() {
         if (!this.scene) return;
 
-        //this.destroy()
+
         // Disable the enemy instead of destroying it
         this.setActive(false)
         this.setVisible(false)

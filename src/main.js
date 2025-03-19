@@ -1,7 +1,8 @@
 // Names: Andrea Martinez, Andrea Morales Villegas
 // Game Title: Deep Dark Sea
+// Phaser Components Used: Arcade Physics, camera, animation manager, timer and tilemap
 // Time Completion: 
-// log: 3/5: 4 hours 
+// log: 3/5: 53 hours 
 
 let config = {
     type: Phaser.AUTO,
