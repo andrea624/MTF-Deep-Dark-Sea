@@ -4,15 +4,17 @@ class Win extends Phaser.Scene {
     }
 
     create() {
-        this.add.text(400, 300, "YOU WIN!", {
-            fontSize: '64px',
-            fill: '#FFF'
-        }).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY + 120, 'comixloud', 'Press Enter to go to Menu', 30).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY + 170, 'comixloud', 'Credits:', 20).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY + 200, 'comixloud', 'Sounds: underwater sound from freesound.org', 16).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY + 230, 'comixloud', 'Animations: Andrea Martinez', 16).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY + 260, 'comixloud', 'Artwork: Andrea Andrea Morales Villegas', 16).setOrigin(0.5)
+        // add background image
+        this.add.image(0, 0, 'winscreen').setOrigin(0, 0).setDisplaySize(game.config.width, game.config.height)
+
+        this.add.bitmapText(centerX, centerY - 200, 'comixloud', 'YOU WIN!', 46).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY, 'comixloud', 'PRESS ENTER TO GO TO MENU', 25).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 100, 'comixloud', 'CREDITS:', 20).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 140, 'comixloud', 'FONT: COMIX LOUD BY IMAGEX', 14).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 170, 'comixloud', 'SFX: UNDERWATER SUB FANTASY SOUND BY LIMITSNAP_CREATIONS', 14).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 200, 'comixloud', 'ANIMATIONS: ANDREA MARTINEZ', 14).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 230, 'comixloud', 'ARTWORK:  PLAYER, EXPLOSION, & WEAPON BY ANDREA MARTINEZ', 14).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 260, 'comixloud', '          TILEMAP, ENEMIES, SCENE BGS BY ANDREA MORALES VILLEGAS', 14).setOrigin(0.5)
 
         //adds key
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)

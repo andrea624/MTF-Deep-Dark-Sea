@@ -1,7 +1,7 @@
 // enemy octopusprefab
 class Octopusenemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
-        super(scene, x, y, 'tempocto')
+        super(scene, x, y, 'octo')
 
         // Store scene reference
         this.sceneRef = scene

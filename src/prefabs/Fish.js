@@ -1,7 +1,7 @@
 // enemy ship prefab
 class Fishenemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
-        super(scene, x, y, 'tempfish')
+        super(scene, x, y, 'fish')
 
         // Store scene reference
         this.sceneRef = scene

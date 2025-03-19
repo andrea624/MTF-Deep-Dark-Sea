@@ -8,8 +8,9 @@ class GameOver extends Phaser.Scene {
         this.add.image(0, 0, 'goscreen').setOrigin(0, 0).setDisplaySize(game.config.width, game.config.height)
 
         // add text
-        this.add.bitmapText(centerX, centerY, 'comixloud', 'click enter to play again', 28).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY+100, 'comixloud', 'click space to go to menu', 28).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY-200, 'comixloud', 'GAME OVER', 46).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY, 'comixloud', 'PRESS ENTER TO PLAY AGAIN', 24).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY+100, 'comixloud', 'PRESS SPACE TO GO TO MENU', 24).setOrigin(0.5)
 
         //adds key
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
