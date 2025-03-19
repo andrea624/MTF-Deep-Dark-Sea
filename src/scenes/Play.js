@@ -132,7 +132,7 @@ class Play extends Phaser.Scene{
             //hides arrows after 2 secs
             this.time.delayedCall(2000, () => {
                 this.arrows.killAndHide(arrow)//deactivates arrow and hides them
-                arrow.disableBody(true, true)
+                arrow.body.enable = false
             })
         }
     }
@@ -152,10 +152,11 @@ class Play extends Phaser.Scene{
         if (enemy && enemy.destroyAndRespawn) {
             enemy.destroyAndRespawn() // Call respawn function from enemy class
         }
-        if (arrow) {
+        /*if (arrow) {
             arrow.destroy()  // Safely destroy arrow
-        }
+        }*/
     }
+
 
     update(){
         // Make enemies chase the player

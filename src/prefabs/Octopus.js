@@ -29,15 +29,15 @@ class Octopusenemy extends Phaser.Physics.Arcade.Sprite {
         this.setVisible(false)
         this.body.enable = false
 
-        this.sceneRef.time.delayedCall(3000, () => {
-            if (!this.sceneRef) return;
-            let spawn = this.sceneRef.map.findObject('Spawns', obj => obj.name === 'octoSpawn')
+        this.scene.time.delayedCall(3000, () => {
+            if (!this.scene || !this.scene.map) return;
+            let spawn = this.scene.map.findObject('Spawns', obj => obj.name === 'octoSpawn')
             if (spawn) {
                 this.setPosition(spawn.x, spawn.y)
                 this.setActive(true)
                 this.setVisible(true)
                 this.body.enable = true // Ensure body is re-enabled when respawning
             }
-        });
+        })
     }
 }
