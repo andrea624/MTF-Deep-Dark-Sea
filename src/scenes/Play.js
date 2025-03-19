@@ -170,6 +170,13 @@ class Play extends Phaser.Scene{
         player.anims.stop()
     
         // maybe find a hit sound to play?
+
+        
+        //resets player position after game over
+        localStorage.setItem('playerPosition', JSON.stringify({
+            x: 3000,
+            y: 0
+        }))
     
         // Short delay before transitioning
         this.time.delayedCall(500, () => {

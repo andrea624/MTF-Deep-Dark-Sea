@@ -5,7 +5,7 @@ class GameOver extends Phaser.Scene {
 
     create() {
         // add background image
-        this.add.image(0, 0, 'tempgo').setOrigin(0, 0).setDisplaySize(game.config.width, game.config.height)
+        this.add.image(0, 0, 'goscreen').setOrigin(0, 0).setDisplaySize(game.config.width, game.config.height)
 
         // add text
         this.add.bitmapText(centerX, centerY, 'comixloud', 'click enter to play again', 28).setOrigin(0.5)
