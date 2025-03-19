@@ -42,6 +42,12 @@ class Load extends Phaser.Scene {
             frameWidth: 400,
             frameHeight: 400 
         })
+        this.load.spritesheet('explosion', 'images/explosion.png', {
+            frameWidth: 64, 
+            frameHeight: 64,
+            startFrame: 0,
+            endFrame: 4
+        })
 
         // load bitmap font
         this.load.bitmapFont('comixloud', 'fonts/comixloud.png', 'fonts/comixloud.xml')

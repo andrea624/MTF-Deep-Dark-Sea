@@ -43,6 +43,17 @@ class Play extends Phaser.Scene{
             frameRate: 10,
             repeat: -1 // Loop animation
         })
+        //explosion animaiton
+        this.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explosion', {
+            start: 0,
+            end: 4
+            }),
+            frameRate: 10,
+            repeat: 0, //dont repeat
+            hideOnComplete: true //hide when anim is done
+        })
         //players last saved position
         const savedPosition = localStorage.getItem('playerPosition')
         if (savedPosition) {
@@ -155,6 +166,8 @@ class Play extends Phaser.Scene{
     // Destroy enemy when hit by an arrow functions
     destroyEnemy(arrow, enemy) {
         if (enemy && enemy.destroyAndRespawn) {
+            let explosion = this.add.sprite(enemy.x, enemy.y, 'explosion')//where enemy is
+            explosion.play('explode')//plays anim
             enemy.destroyAndRespawn() // Call respawn function from enemy class
         }
         /*if (arrow) {
