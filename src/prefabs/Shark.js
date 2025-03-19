@@ -1,7 +1,7 @@
 // enemy ship prefab
 class Sharkenemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
-        super(scene, x, y, 'tempshark');
+        super(scene, x, y, 'shark');
 
         // Store scene reference
         this.sceneRef = scene
@@ -10,7 +10,7 @@ class Sharkenemy extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this)
         
         this.setCollideWorldBounds(true)
-        this.setScale(0.5)
+        this.setScale(0.8)
         this.body.allowGravity = false
         this.speed = 100
     }

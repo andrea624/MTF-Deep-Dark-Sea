@@ -145,6 +145,18 @@
                  "width":0,
                  "x":1104,
                  "y":64
+                }, 
+                {
+                 "height":0,
+                 "id":13,
+                 "name":"fishSpawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":606.060606060606,
+                 "y":190.909090909091
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -153,7 +165,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":13,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

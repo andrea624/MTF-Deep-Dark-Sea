@@ -30,7 +30,7 @@ class Load extends Phaser.Scene {
         // sprites
         this.load.image('tempocto', 'images/tempocto.png')
         this.load.image('tempfish', 'images/tempfish.png')
-        this.load.image('tempshark', 'images/tempshark.png')
+        this.load.image('shark', 'images/shark.png')
         this.load.image('Arrow', 'images/arrow.png')
 
         //loads spritesheets
