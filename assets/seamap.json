@@ -157,6 +157,18 @@
                  "width":0,
                  "x":606.060606060606,
                  "y":190.909090909091
+                }, 
+                {
+                 "height":0,
+                 "id":14,
+                 "name":"bottleSpawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":21.2121212121212,
+                 "y":593.939393939394
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -165,7 +177,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":14,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",

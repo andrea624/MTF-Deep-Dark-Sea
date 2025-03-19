@@ -14,6 +14,7 @@ class Play extends Phaser.Scene{
         //player spawns
         const playerSpawn = map.findObject('Spawns', (obj) => obj.name === 'playerSpawn')
 
+        
         // adding background music
         this.music = this.sound.add('underwater', {
             mute: false,
@@ -98,7 +99,20 @@ class Play extends Phaser.Scene{
             defaultKey: 'Arrow',
             maxSize: 4
         })
-        
+
+        // Find bottle spawn point in the tilemap
+        const bottleSpawn = map.findObject('Spawns', obj => obj.name === 'bottleSpawn')
+
+        // Create bottle sprite at the spawn location
+        if (bottleSpawn) {
+            this.bottle = this.physics.add.sprite(bottleSpawn.x, bottleSpawn.y, 'bottle').setScale(0.5)
+            this.bottle.setCollideWorldBounds(true)
+            this.bottle.body.allowGravity = false // Keeps the bottle from falling
+        }
+
+        // Add collision between player and bottle
+        this.physics.add.overlap(this.player, this.bottle, this.collectBottle, null, this)
+
         //create keys
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
@@ -194,6 +208,20 @@ class Play extends Phaser.Scene{
             this.scene.start('gameoverScene') // Switch to Game Over scene
         });
     }
+
+    collectBottle(player, bottle) {
+        console.log("Bottle collected! You win!");
+    
+        // Hide bottle and disable physics body
+        bottle.setVisible(false);
+        bottle.body.setEnable(false);
+    
+        // Short delay before transitioning
+        this.time.delayedCall(1000, () => {
+            this.scene.start('winScene'); // Change to your win scene
+        });
+    }
+    
     
 
     update(){
