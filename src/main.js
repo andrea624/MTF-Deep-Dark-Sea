@@ -1,6 +1,7 @@
 // Names: Andrea Martinez, Andrea Morales Villegas
 // Make the Fake Game Title: Deep Dark Sea from Arthur (cartoon)
 // Phaser Components Used: Arcade Physics, camera, animation manager, timer and tilemap
+// Game Credits can be found during the win scene
 // Time Completion: 53 hours 
 
 let config = {
