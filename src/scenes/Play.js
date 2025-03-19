@@ -78,6 +78,9 @@ class Play extends Phaser.Scene{
         if (sharkSpawn) this.spawnEnemy('shark', sharkSpawn.x, sharkSpawn.y)
         if (octoSpawn) this.spawnEnemy('octopus', octoSpawn.x, octoSpawn.y)
         if (fishSpawn) this.spawnEnemy('fish', fishSpawn.x, fishSpawn.y)
+        
+        // adding collision detection between enemies & the map
+        this.physics.add.collider(this.enemies, layer1)
 
         //group for arrows
         this.arrows = this.physics.add.group({
@@ -110,6 +113,8 @@ class Play extends Phaser.Scene{
         // Collision detection: Arrows destroy enemies
         this.physics.add.overlap(this.arrows, this.enemies, this.destroyEnemy, null, this)
 
+        // Collision detection: Enemies destroy player :(
+        this.physics.add.collider(this.player, this.enemies, this.handlePlayerEnemyCollision, null, this)
     }
     
     //fire arrow function
@@ -157,15 +162,32 @@ class Play extends Phaser.Scene{
         }*/
     }
 
+    handlePlayerEnemyCollision(player, enemy) {
+        console.log("Game Over! Enemy touched player.")
+    
+        // Stop all movement
+        player.setVelocity(0)
+        player.anims.stop()
+    
+        // maybe find a hit sound to play?
+    
+        // Short delay before transitioning
+        this.time.delayedCall(500, () => {
+            this.scene.start('gameoverScene') // Switch to Game Over scene
+        });
+    }
+    
 
     update(){
         // Make enemies chase the player
         this.enemies.children.iterate(enemy => {
-            if (enemy.active) enemy.update(this.player)
+            if (enemy.active) {
+                enemy.setBounce(0.2); // Slight bounce on collision
+                enemy.setCollideWorldBounds(true); // Prevents enemies from leaving the world
+                enemy.update(this.player)
+            }        
         });
 
-        //collision detection 
-        //this.physics.add.overlap(this.player, this.fish, this.handlePlayerFishCollision, null, this)
         let velocityX = 0
         let velocityY = 0
         let animation = null
