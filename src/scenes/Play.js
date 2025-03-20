@@ -15,7 +15,7 @@ class Play extends Phaser.Scene{
         const playerSpawn = map.findObject('Spawns', (obj) => obj.name === 'playerSpawn')
 
         
-        // adding background music
+        // adding background music & sfxs
         this.music = this.sound.add('underwater', {
             mute: false,
             volume: 1,
@@ -23,6 +23,12 @@ class Play extends Phaser.Scene{
             loop: true
         });
         this.music.play();
+
+        this.hitsfx = this.sound.add('bubding')
+
+        this.events.once('playerHit', () => {
+            this.hitsfx.play();
+        });
 
         //animation for walking left
         this.anims.create({
@@ -189,13 +195,13 @@ class Play extends Phaser.Scene{
 
     handlePlayerEnemyCollision(player, enemy) {
         console.log("Game Over! Enemy touched player.")
-    
-        // Stop all movement
+
+        // emit the event to play the sound once
+        this.events.emit('playerHit')
+
+        // stop all movement
         player.setVelocity(0)
         player.anims.stop()
-    
-        // maybe find a hit sound to play?
-
         
         //resets player position after game over
         localStorage.setItem('playerPosition', JSON.stringify({

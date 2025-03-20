@@ -56,6 +56,7 @@ class Load extends Phaser.Scene {
 
         // load sound effects/music
         this.load.audio('underwater', 'sfx/underwater.wav')
+        this.load.audio('bubding', '/sfx/bubbleding.wav')
     }
 
     create() {
