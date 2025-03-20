@@ -15,7 +15,7 @@ class Menu extends Phaser.Scene {
         // add title text
         //this.add.bitmapText()
         this.add.bitmapText(centerX, titleY, 'comixloud', 'DEEP DARK SEA', 64).setOrigin(0.5)
-        this.add.bitmapText(centerX, centerY + 150, 'comixloud', 'USE LEFT & RIGHT ARROWS TO MOVE', 16).setOrigin(0.5)
+        this.add.bitmapText(centerX, centerY + 150, 'comixloud', 'USE LEFT & RIGHT ARROWS TO MOVE, F KEY TO FIRE', 16).setOrigin(0.5)
         this.add.bitmapText(centerX, centerY + 190, 'comixloud', 'TO SAVE PROGRESS IN GAME PRESS ENTER', 16).setOrigin(0.5)
         this.add.bitmapText(centerX, centerY + 240, 'comixloud', 'PRESS ENTER TO BEGIN', 16).setOrigin(0.5)
         
